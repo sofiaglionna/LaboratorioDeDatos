@@ -7,21 +7,21 @@ def leer_parque(nombre_archivo,parque) -> list[dict]:
 
         encabezado = next(filas)
 
-        indice_parques = encabezado.index("espacio_ve") #Deberia devolver "k" que es donde estan los parqies
+        indice_parques = encabezado.index("espacio_ve") # Debería devolver "k" que es donde estan los parqies.
         
         parqueData = []  
 
         for fila in filas:
             if fila[indice_parques] == parque:
-                arbolData = dict(zip(encabezado,fila)) #armo el diccionario de cada fila
+                arbolData = dict(zip(encabezado,fila)) # Armo el diccionario de cada fila.
                 parqueData.append(arbolData)
 
-    #creo un diccionario con tantas claves como columas. Los valores son los datos de esas columnas
+    # Creo un diccionario con tantas claves como columas. Cada diccionario contiene la información de 1 árbol.
 
     return parqueData
 
-arboles = leer_parque("arbolado-en-espacios-verdes.csv", "CENTENARIO")
-#print(len(arboles))
+arboles = leer_parque("arbolado-en-espacios-verdes.csv", "REPÚBLICA SOCIALISTA DE VIETNAM")
+#print(arboles)
 
 def especies(lista_arboles: list[dict]):
     listaEspecies = []
@@ -32,7 +32,7 @@ def especies(lista_arboles: list[dict]):
     return listaEspecies
 
 #lista = leer_parque("arbolado-en-espacios-verdes.csv", "CENTENARIO")
-#print(especies(lista))
+#print(especies(arboles))
 
 def contar_ejemplares(lista_arboles):
     dictEspecies = {}
@@ -46,20 +46,16 @@ def contar_ejemplares(lista_arboles):
 
     return dictEspecies
 
-
-#print(contar_ejemplares(lista))
+#print(contar_ejemplares(arboles))
 
 def obtener_alturas(lista_arboles, especie):
     listaAlturas = []
 
     for arbol in lista_arboles:
         if arbol['nombre_com'] == especie:
-            listaAlturas.append(arbol['altura_tot'])
+            listaAlturas.append(int(arbol['altura_tot'])) # Paso la altura (str) a un int, ya que luego lo voy a usar para calcular el promedio.
 
     return listaAlturas
-
-lista = leer_parque("arbolado-en-espacios-verdes.csv", "CENTENARIO")
-alturas = obtener_alturas(lista, 'Jacarandá')
 
 def promedio(alturas):
     total = 0
@@ -69,9 +65,26 @@ def promedio(alturas):
         cant = cant + 1
     return (total/cant)
 
-print(promedio(alturas))
+def masAlto(alturas):
+    max = 0
+    for altura in alturas:
+        if altura > max:
+            max = altura
+    return max
 
-#DEBO PASARLO A INT PQ ESTAN EN INT!!
+lista = leer_parque("arbolado-en-espacios-verdes.csv", "GENERAL PAZ")
+alturas = obtener_alturas(lista, 'Jacarandá')
+#print(masAlto(alturas))
+#print(promedio(alturas))
+#CENTENARIO -> Más Alto: 18 mts || Promedio = 8.96 mts
+#GENERAL PAZ -> Más Alto: 16 mts || Promedio = 10.2 mts
+
+
+
+
+
+
+
 
 
 
